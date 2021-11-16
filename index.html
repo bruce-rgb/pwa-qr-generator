@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="icon" type="image/png" href="img/icon-144x144.png">
+    
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/qrcode.js"></script>
+    
+    <link rel="manifest" href="/manifest.json">
+    
+    <title> QR Generator </title>
+</head>
+
+<body>
+    <!-- Navbar section -->
+    <header class="full-width">
+        <nav class="navbar row-flex">
+            <ul class="navbar__list--items row-flex align-left">
+                <li class="navbar__list--item">
+                    <a href="/" class="banner"> QR Generator </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Application Section -->
+    <main class="align-center"> <!-- app row-flex  -->
+        <div>
+            <input id="text" type="text" value="http://www.google.com" style="width:80%" /><br />
+            <div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div>
+
+            <script type="text/javascript">
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                    width: 200,
+                    height: 200
+                });
+
+                function makeCode() {
+                    var elText = document.getElementById("text");
+
+                    if (!elText.value) {
+                        alert("Input a text");
+                        elText.focus();
+                        return;
+                    }
+
+                    qrcode.makeCode(elText.value);
+                }
+
+                makeCode();
+
+                $("#text").
+                on("blur", function () {
+                    makeCode();
+                }).
+                on("keydown", function (e) {
+                    if (e.keyCode == 13) {
+                        makeCode();
+                    }
+                });
+            </script>
+        </div>        
+    </main>
+
+    <!-- Critical Scripts -->
+    <script src="js/app.js" defer></script>
+</body>
+
+</html>
